@@ -1,8 +1,5 @@
 package task2;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class MergeSort {
     public static int[] sort(int[] list) {
         mergeSort(list, list.length);
@@ -16,25 +13,20 @@ public class MergeSort {
         int[] l = new int[mid];
         int[] r = new int[n - mid];
 
-        for (int i = 0; i < mid; i++) {
-            l[i] = a[i];
-        }
-        for (int i = mid; i < n; i++) {
-            r[i - mid] = a[i];
-        }
+        System.arraycopy(a, 0, l, 0, mid);
+        if (n - mid >= 0)
+            System.arraycopy(a, mid, r, 0, n - mid);
+
         mergeSort(l, mid);
         mergeSort(r, n - mid);
-
         merge(a, l, r, mid, n - mid);
     }
 
     private static void merge(int[] a, int[] l, int[] r, int left, int right) {
-
         int i = 0, j = 0, k = 0;
 
         while (i < left && j < right) {
-
-            if ((int)l[i] <= (int)r[j])
+            if (l[i] <= r[j])
                 a[k++] = l[i++];
             else
                 a[k++] = r[j++];
