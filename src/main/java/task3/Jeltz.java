@@ -1,39 +1,42 @@
 package task3;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
 public class Jeltz extends Creature{
-    String fullName;
 
     public Jeltz(){
-        setName("Джельц");
-        setFullName("Простетный Вогон Джельц");
-        setColor(Color.GREEN);
+        super("Простетный Вогон Джельц", Colors.GREEN, 100.0, null);
+        setMood(Mood.ANNOYED);
     }
 
+    public Jeltz(String name, Colors color, Double weight, Place currentLocation) {
+        super(name, color, weight, currentLocation);
+    }
 
     @Override
     public void move(Place place) {
-        super.move(place);
-        System.out.println("Перетащил тело в " + place.getName());
+        if (place != null) {
+            super.move(place);
+            System.out.println("Перетащил тело в локацию " + place.getName());
+        }
     }
 
 
     public void yell(Creature creature){
-        setMood(getMood().boost());
-        creature.setMood(creature.getMood().lower());
-        System.out.println(getFullName() + " наорал и стало легче");
+        if (creature != null) {
+            setMood(getMood().boost());
+            creature.setMood(creature.getMood().lower());
+            System.out.println(getName() + " наорал и стало легче");
+        }
     }
 
     public void plopIntoChair(){
-        getCurrentLocation().getItems().stream()
-                .filter(item -> item instanceof Armchair)
-                .findFirst().ifPresentOrElse(
-                        item -> ((Armchair) item).flopDown(this),
-                        () -> System.out.println("Не нашел кресло")
-                );
+        if (getCurrentLocation() != null) {
+            getCurrentLocation().getItems().stream()
+                    .filter(item -> item instanceof Armchair)
+                    .findFirst().ifPresentOrElse(
+                            item -> ((Armchair) item).flopDown(this),
+                            () -> System.out.println("Не нашел кресло")
+                    );
+        }
     }
 }

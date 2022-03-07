@@ -6,25 +6,15 @@ public enum Mood {
     CALM;
 
     public Mood lower(){
-        switch(this){
-            case ANNOYED, NOT_SO_MUCH_ANNOYED -> {
-                return ANNOYED;
-            }
-            case CALM -> {
-                return NOT_SO_MUCH_ANNOYED;
-            }
+        if (this == Mood.ANNOYED || this == Mood.NOT_SO_MUCH_ANNOYED) {
+            return ANNOYED;
         }
-        return ANNOYED;
+        return NOT_SO_MUCH_ANNOYED;
     }
     public Mood boost(){
-        switch(this){
-            case ANNOYED -> {
-                return NOT_SO_MUCH_ANNOYED;
-            }
-            case NOT_SO_MUCH_ANNOYED, CALM -> {
-                return CALM;
-            }
+        if (this == Mood.NOT_SO_MUCH_ANNOYED || this == Mood.CALM) {
+            return CALM;
         }
-        return CALM;
+        return NOT_SO_MUCH_ANNOYED;
     }
 }
