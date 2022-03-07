@@ -41,10 +41,6 @@ public class Tg {
                 } else {
                     jSum = jSum.subtract(bInt.multiply(jPownN));
                 }
-
-                /*
-                update binomual(k,j) recirsively
-                 */
                 bInt = bInt.multiply(new BigInteger("" + (k - j))).
                         divide(new BigInteger("" + (j + 1)));
             }

@@ -12,7 +12,7 @@ public class TgTest {
 
     @ParameterizedTest(name = "tg({0})")
     @DisplayName("Check PI dots")
-    @ValueSource(doubles = {0, Math.PI/6, Math.PI/4, Math.PI/3, -Math.PI/6, -Math.PI/4, -Math.PI/3, Math.PI})
+    @ValueSource(doubles = {0, Math.PI/12, Math.PI/8, Math.PI/6, Math.PI/4, Math.PI/3, -Math.PI/12, -Math.PI/8, -Math.PI/6, -Math.PI/4, -Math.PI/3, Math.PI})
     void checkPiDots(double param) {
         assertAll(
                 () -> assertEquals(Math.tan(param), Tg.solve(param), 0.015)
@@ -20,7 +20,7 @@ public class TgTest {
     }
 
     @ParameterizedTest(name = "tg({0}) = NaN")
-    @DisplayName("Check PI dots")
+    @DisplayName("Check PI dots NaN")
     @ValueSource(doubles = {Math.PI/2, -Math.PI/2})
     void checkPiDotsNaN(double param) {
         assertAll(
@@ -31,7 +31,7 @@ public class TgTest {
 
 
     @ParameterizedTest(name = "tg({0}) = {1}")
-    @DisplayName("Check between dots")
+    @DisplayName("Check table dots")
     @CsvFileSource(resources = "/table.csv", numLinesToSkip = 1, delimiter = ';')
     void checkBetweenDotsMinusPiAndPi(double x, double y) {
         assertAll(
