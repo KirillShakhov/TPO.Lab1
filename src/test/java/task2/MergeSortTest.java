@@ -3,6 +3,8 @@ package task2;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -53,5 +55,38 @@ public class MergeSortTest {
         int[] res = MergeSort.sort(test);
         Arrays.sort(test);
         assertArrayEquals(test,res);
+    }
+
+    @Test
+    @DisplayName("Check merge")
+    void checkMerge() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        MergeSort privateObject = new MergeSort();
+
+        Method privateStringMethod = MergeSort.class.
+                getDeclaredMethod("merge", int[].class, int[].class, int[].class, int.class, int.class);
+
+
+        privateStringMethod.setAccessible(true);
+
+
+        int[] test_0 = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int[] test = new int[10];
+
+        int[] l_arr_0 = new int[]{1, 2, 3, 4, 5};
+        int[] l_arr = new int[]{1, 2, 3, 4, 5};
+
+        int[] r_arr_0 = new int[]{6, 7, 8, 9, 10};
+        int[] r_arr = new int[]{6, 7, 8, 9, 10};
+
+        int l_len = 5;
+        int r_len = 5;
+
+        privateStringMethod.invoke(privateObject, test, l_arr, r_arr, l_len, r_len);
+
+        assertArrayEquals(test_0, test);
+
+        assertArrayEquals(r_arr_0, r_arr);
+
+        assertArrayEquals(l_arr_0, l_arr);
     }
 }
