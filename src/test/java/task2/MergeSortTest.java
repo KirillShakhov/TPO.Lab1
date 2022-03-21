@@ -60,7 +60,6 @@ public class MergeSortTest {
     @Test
     @DisplayName("Check merge")
     void checkMerge() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        MergeSort privateObject = new MergeSort();
 
         Method privateStringMethod = MergeSort.class.
                 getDeclaredMethod("merge", int[].class, int[].class, int[].class, int.class, int.class);
@@ -81,12 +80,69 @@ public class MergeSortTest {
         int l_len = 5;
         int r_len = 5;
 
-        privateStringMethod.invoke(privateObject, test, l_arr, r_arr, l_len, r_len);
+        privateStringMethod.invoke(new MergeSort(), test, l_arr, r_arr, l_len, r_len);
 
         assertArrayEquals(test_0, test);
 
         assertArrayEquals(r_arr_0, r_arr);
 
         assertArrayEquals(l_arr_0, l_arr);
+    }
+
+    @Test
+    @DisplayName("Check merge remainder")
+    void checkMergeRemainder() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+
+        Method privateStringMethod = MergeSort.class.
+                getDeclaredMethod("merge", int[].class, int[].class, int[].class, int.class, int.class);
+
+
+        privateStringMethod.setAccessible(true);
+
+
+        int[] test_0 = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 1, 1, 1, 1};
+        int[] test = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1};
+
+        int[] l_arr_0 = new int[]{1, 2, 3, 4, 5};
+        int[] l_arr = new int[]{1, 2, 3, 4, 5};
+
+        int[] r_arr_0 = new int[]{6, 7, 8, 9, 10};
+        int[] r_arr = new int[]{6, 7, 8, 9, 10};
+
+        int l_len = 5;
+        int r_len = 5;
+
+        privateStringMethod.invoke(new MergeSort(), test, l_arr, r_arr, l_len, r_len);
+
+        assertArrayEquals(test_0, test);
+
+        assertArrayEquals(r_arr_0, r_arr);
+
+        assertArrayEquals(l_arr_0, l_arr);
+    }
+
+    @Test
+    @DisplayName("Check merge null")
+    void checkMergeNull() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+
+        Method privateStringMethod = MergeSort.class.
+                getDeclaredMethod("merge", int[].class, int[].class, int[].class, int.class, int.class);
+
+
+        privateStringMethod.setAccessible(true);
+
+
+        int[] test_0 = new int[10];
+        int[] test = new int[10];
+
+        int[] l_arr = new int[]{1, 2, 3, 4, 5};
+        int[] r_arr = new int[]{6, 7, 8, 9, 10};
+
+        int l_len = 0;
+        int r_len = 0;
+
+        privateStringMethod.invoke(new MergeSort(), test, l_arr, r_arr, l_len, r_len);
+
+        assertArrayEquals(test_0, test);
     }
 }
